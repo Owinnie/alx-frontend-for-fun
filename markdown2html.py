@@ -13,5 +13,23 @@ if __name__ == "__main__":
         stderr.write("Missing {}\n".format(argv[1]))
         exit(1)
     else:
-        # print()
+        with open(argv[1]) as md:
+            for line in md:
+                if line.startswith("#"):
+                    # line.strip()
+                    with open(argv[2], "a") as htl:
+                        if line.count("#") <= 6:
+                            (htl.write(line
+                                       .replace("# ", "#")
+                                       .strip()
+                                       .replace("#"*line.count("#"),
+                                                "<h{}>".format(line
+                                                               .count(
+                                                                      "#"
+                                                                     )
+                                                               )
+                                                ) + "</h{}>\n"
+                                                    .format(line
+                                                            .count("#")
+                                                            )))
         exit(0)
