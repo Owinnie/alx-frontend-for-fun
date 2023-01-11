@@ -1,22 +1,25 @@
 #!/usr/bin/python3
-""" Takes 2 string arguments """
 
-
-from sys import argv, exit, stderr
-import os
+"""
+Markdown script using python.
+"""
+import sys
+import os.path
 import re
 import hashlib
 
-if __name__ == "__main__":
-    if len(argv[1:]) != 2:
-        stderr.write("Usage: ./markdown2html.py README.md README.html\n")
+if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print('Usage: ./markdown2html.py README.md README.html',
+              file=sys.stderr)
         exit(1)
-    elif os.path.exists(argv[1]) is False:
-        stderr.write("Missing {}\n".format(argv[1]))
+
+    if not os.path.isfile(sys.argv[1]):
+        print('Missing {}'.format(sys.argv[1]), file=sys.stderr)
         exit(1)
-    else:
-        with open(argv[1]) as read:
-        with open(argv[2], 'w') as html:
+
+    with open(sys.argv[1]) as read:
+        with open(sys.argv[2], 'w') as html:
             unordered_start, ordered_start, paragraph = False, False, False
             # bold syntax
             for line in read:
