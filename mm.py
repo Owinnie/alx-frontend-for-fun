@@ -58,11 +58,11 @@ if __name__ == "__main__":
                 # Last occurence of </li>
                 str_cont = " ".join(cont)
                 index = str_cont.rfind("</li>")
-                nstr_cont = str_cont[:index+1] + "</ul>\n " + str_cont[index+1:]
+                nstr_cont = str_cont[:index+len("</li>\n")] + "</ul>\n " + str_cont[index+len("</li>\n"):]
                 # cont.append("</ul>\n")
                 cont = list(nstr_cont.split(" "))
 
                 with open(argv[2], "w") as h:
-                    cont = "".join(cont)
+                    cont = " ".join(cont)
                     h.write(cont)
         exit(0)
