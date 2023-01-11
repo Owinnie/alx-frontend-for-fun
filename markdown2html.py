@@ -54,6 +54,9 @@ if __name__ == "__main__":
                                    .strip()
                                    .replace("*", "<li>") + "</li>\n"))
 
+                    # paragraphs
+
+                        # ... Coming soon ...
             if type_of_ls == "ul":
                 with open(argv[2], "r") as h:
                     cont = h.readlines()
