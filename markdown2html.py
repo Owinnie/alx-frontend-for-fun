@@ -15,7 +15,7 @@ if __name__ == "__main__":
     else:
         with open(argv[1]) as md:
             with open(argv[2], "a") as htl:
-                type_of_ls = False
+                type_of_ls = ""
                 for line in md:
 
                     # Headings
@@ -39,12 +39,22 @@ if __name__ == "__main__":
                     # unordered lists
 
                     if line.startswith("-"):
-                        type_of_ls = True
+                        type_of_ls = "ul"
                         (htl.write(line
                                    .replace("- ", "-")
                                    .strip()
                                    .replace("-", "<li>") + "</li>\n"))
-            if type_of_ls is True:
+
+                    # ordered lists
+
+                    if line.startswith("*"):
+                        type_of_ls = "ol"
+                        (htl.write(line
+                                   .replace("* ", "*")
+                                   .strip()
+                                   .replace("*", "<li>") + "</li>\n"))
+
+            if type_of_ls == "ul":
                 with open(argv[2], "r") as h:
                     cont = h.readlines()
 
@@ -52,7 +62,6 @@ if __name__ == "__main__":
                 str_cont = " ".join(cont)
                 index = str_cont.find("<li>")
                 nstr_cont = str_cont[:index] + "<ul>\n " + str_cont[index:]
-                # cont.insert(1, "<ul>\n")
                 cont = list(nstr_cont.split(" "))
 
                 # Last occurence of </li>
@@ -60,7 +69,27 @@ if __name__ == "__main__":
                 index = str_cont.rfind("</li>")
                 nstr_cont = (str_cont[:index+len("</li>\n")] +
                              "</ul>\n " + str_cont[index+len("</li>\n"):])
-                # cont.append("</ul>\n")
+                cont = list(nstr_cont.split(" "))
+
+                with open(argv[2], "w") as h:
+                    cont = " ".join(cont)
+                    h.write(cont)
+
+            elif type_of_ls == "ol":
+                with open(argv[2], "r") as h:
+                    cont = h.readlines()
+
+                # First occurrence of <li>
+                str_cont = " ".join(cont)
+                index = str_cont.find("<li>")
+                nstr_cont = str_cont[:index] + "<ol>\n " + str_cont[index:]
+                cont = list(nstr_cont.split(" "))
+
+                # Last occurence of </li>
+                str_cont = " ".join(cont)
+                index = str_cont.rfind("</li>")
+                nstr_cont = (str_cont[:index+len("</li>\n")] +
+                             "</ol>\n " + str_cont[index+len("</li>\n"):])
                 cont = list(nstr_cont.split(" "))
 
                 with open(argv[2], "w") as h:
