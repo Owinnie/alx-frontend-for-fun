@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Takes 2 string arguments """
 
 
@@ -14,10 +14,9 @@ if __name__ == "__main__":
         exit(1)
     else:
         with open(argv[1]) as md:
-            # ls = []
-            for line in md:
-                ls = []
-                with open(argv[2], "a") as htl:
+            with open(argv[2], "a") as htl:
+                type_of_ls =False
+                for line in md:
 
                     # Headings
 
@@ -40,20 +39,30 @@ if __name__ == "__main__":
                     # unordered lists
 
                     if line.startswith("-"):
-                        ls.append(line)
-
-                    for ln in ls:
-                        (htl.write(ln
+                        type_of_ls = True
+                        (htl.write(line
                                    .replace("- ", "-")
                                    .strip()
                                    .replace("-", "<li>") + "</li>\n"))
-        with open(argv[2], "r") as h:
-            cont = h.readlines()
+            if type_of_ls == True:
+                with open(argv[2], "r") as h:
+                    cont = h.readlines()
 
-        cont.insert(1, "<ul>\n")
-        cont.append("</ul>\n")
+                # First occurrence of <li>
+                str_cont = " ".join(cont)
+                index = str_cont.find("<li>")
+                nstr_cont = str_cont[:index] + "<ul>\n " + str_cont[index:]
+                # cont.insert(1, "<ul>\n")
+                cont = list(nstr_cont.split(" "))
 
-        with open(argv[2], "w") as h:
-            cont = "".join(cont)
-            h.write(cont)
+                # Last occurence of </li>
+                str_cont = " ".join(cont)
+                index = str_cont.rfind("</li>")
+                nstr_cont = str_cont[:index+1] + "</ul>\n " + str_cont[index+1:]
+                # cont.append("</ul>\n")
+                cont = list(nstr_cont.split(" "))
+
+                with open(argv[2], "w") as h:
+                    cont = "".join(cont)
+                    h.write(cont)
         exit(0)
