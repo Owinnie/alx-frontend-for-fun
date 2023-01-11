@@ -15,7 +15,7 @@ if __name__ == "__main__":
     else:
         with open(argv[1]) as md:
             with open(argv[2], "a") as htl:
-                type_of_ls =False
+                type_of_ls = False
                 for line in md:
 
                     # Headings
@@ -35,7 +35,7 @@ if __name__ == "__main__":
                                                     .format(line
                                                             .count("#")
                                                             )))
-                    
+
                     # unordered lists
 
                     if line.startswith("-"):
@@ -44,7 +44,7 @@ if __name__ == "__main__":
                                    .replace("- ", "-")
                                    .strip()
                                    .replace("-", "<li>") + "</li>\n"))
-            if type_of_ls == True:
+            if type_of_ls is True:
                 with open(argv[2], "r") as h:
                     cont = h.readlines()
 
@@ -58,7 +58,8 @@ if __name__ == "__main__":
                 # Last occurence of </li>
                 str_cont = " ".join(cont)
                 index = str_cont.rfind("</li>")
-                nstr_cont = str_cont[:index+len("</li>\n")] + "</ul>\n " + str_cont[index+len("</li>\n"):]
+                nstr_cont = (str_cont[:index+len("</li>\n")] +
+                             "</ul>\n " + str_cont[index+len("</li>\n"):])
                 # cont.append("</ul>\n")
                 cont = list(nstr_cont.split(" "))
 
