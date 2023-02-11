@@ -1,0 +1,17 @@
+.icon, image {
+    width: 100%;
+    display: flex;
+}
+
+ul li {
+    display: inline-block;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
