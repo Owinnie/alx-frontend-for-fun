@@ -1,7 +1,10 @@
 /* Nested hover */
+$clr1: #FF0000;
+$clr2: #00FF00;
+
 button {
-	color: #FF0000;
+	color: $clr1;
 	&:hover {
-		color: #00FF00;
+		color: $clr2;
 	}
 }
